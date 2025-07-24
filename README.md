@@ -44,13 +44,16 @@
 
 ## Конфигурация
 
+```env
 SERVER_PORT=8200
 SPRING_PROFILES_ACTIVE=local
+
 DB_URL=postgres
 DB_PORT=5450
 DB_NAME=authdb
 DB_USERNAME=postgres
 DB_PASSWORD=postgres
+
 JWT_SECRET_KEY=myVerySecretJWTKey123456789012345678901234567890abcdef
 
 ---
