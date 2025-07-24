@@ -14,6 +14,8 @@ FROM openjdk:23-jdk-slim
 
 WORKDIR /app
 
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
+
 COPY --from=build /app/target/*.jar app.jar
 
 RUN java -Djarmode=layertools -jar app.jar extract

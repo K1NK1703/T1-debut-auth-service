@@ -22,7 +22,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8080:8080"
+      - "8200:8200"
     environment:
       SERVER_PORT: ${SERVER_PORT}
       SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE}
@@ -34,6 +34,11 @@ services:
       JWT_SECRET_KEY: ${JWT_SECRET_KEY}
     depends_on:
       - postgres
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8080/actuator/health" ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
     restart: on-failure
     networks:
       - auth-network
