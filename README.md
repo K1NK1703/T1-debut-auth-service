@@ -146,6 +146,7 @@ json:
 ```
 
 3. Другие endpoint's:
+```
   POST	/auth/login	    Логин (получение JWT токенов)
   POST	/auth/register	Регистрация нового пользователя
   POST	/auth/refresh	  Обновление (рефреш) JWT токена
@@ -154,4 +155,4 @@ json:
   GET   /admin/users    Список всех пользователей
   GET   /user/profile   Профиль пользователя
   PUT   /user/profile   Обновить профиль
-  
+```
