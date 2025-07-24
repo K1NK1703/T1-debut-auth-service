@@ -36,7 +36,6 @@
 
 ## Конфигурация
 
-'''
 SERVER_PORT=8200
 SPRING_PROFILES_ACTIVE=local
 
@@ -47,7 +46,6 @@ DB_USERNAME=postgres
 DB_PASSWORD=postgres
 
 JWT_SECRET_KEY=myVerySecretJWTKey123456789012345678901234567890abcdef
-'''
 
 ## Тестирование
 
