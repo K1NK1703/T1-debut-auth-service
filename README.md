@@ -2,7 +2,6 @@
 
 Полнофункциональный REST API сервис аутентификации и авторизации на Spring Boot с JWT токенами, системой ролей и PostgreSQL базой данных.
 
----
 
 ## Содержание
 
@@ -11,9 +10,8 @@
 - Конфигурация  
 - Тестирование  
 - Развёртывание  
-- Примеры использования  
+- Примеры использования
 
----
 
 ## Возможности
 
@@ -26,7 +24,6 @@
 - Валидация данных с подробными сообщениями об ошибках  
 - Управление пользователями (только для админов)  
 
----
 
 ## Стек технологий
 
@@ -40,7 +37,6 @@
 - Maven  
 - Lombok  
 
----
 
 ## Конфигурация
 
@@ -63,7 +59,8 @@ JWT_SECRET_KEY=myVerySecretJWTKey123456789012345678901234567890abcdef
 
 В базе при запуске создаются пользователи:
 
-```{
+```
+{
   "login": "admin",
   "password": "123456789", # (пароль хранится в закодированном состоянии)
   "roles": ['ADMIN', 'PREMIUM_USER', 'GUEST'],
@@ -98,13 +95,15 @@ JWT_SECRET_KEY=myVerySecretJWTKey123456789012345678901234567890abcdef
 1. Login: POST http://localhost:8200/auth/login
 Headers: Content-type: application/json
 Body:
-```{
+```
+{
     "login": "admin",
     "password": "123456789"
 }
 ```
 Ответ: 200 OK
-```json:
+```
+json:
 {
     "access_token": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjpbInByZW1pdW1fdXNlciIsImFkbWluIiwiZ3Vlc3QiXSwiaWF0IjoxNzUzMzYwNjkwLCJleHAiOjE3NTMzNjQyOTB9.XBnHZBdYkeMmvs4jV3bHfPyM7lxP75NonG-Pmhuqgj36huD0uuaiFPrM2Nu9DTWS",
     "refresh_token": "60a2d50e-2950-4b50-823a-9387de9035fb",
@@ -133,10 +132,12 @@ Body:
 
 2. Logout: POST http://localhost:8200/auth/logout
 Authorization: Bearer Token
-```Token: eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjpbInByZW1pdW1fdXNlciIsImFkbWluIiwiZ3Vlc3QiXSwiaWF0IjoxNzUzMzYwNjkwLCJleHAiOjE3NTMzNjQyOTB9.XBnHZBdYkeMmvs4jV3bHfPyM7lxP75NonG-Pmhuqgj36huD0uuaiFPrM2Nu9DTWS
+```
+Token: eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjpbInByZW1pdW1fdXNlciIsImFkbWluIiwiZ3Vlc3QiXSwiaWF0IjoxNzUzMzYwNjkwLCJleHAiOjE3NTMzNjQyOTB9.XBnHZBdYkeMmvs4jV3bHfPyM7lxP75NonG-Pmhuqgj36huD0uuaiFPrM2Nu9DTWS
 ```
 Ответ: 200 OK
-```json:
+```
+json:
 {
     "success": true,
     "message": "Успешный выход из системы",
