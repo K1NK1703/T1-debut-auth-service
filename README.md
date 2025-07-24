@@ -37,7 +37,7 @@
 ## Конфигурация
 
 '''
-SERVER_PORT=8080
+SERVER_PORT=8200
 SPRING_PROFILES_ACTIVE=local
 
 DB_URL=postgres # hostname контейнера
@@ -83,3 +83,62 @@ JWT_SECRET_KEY=myVerySecretJWTKey123456789012345678901234567890abcdef
 
 ## Примеры использования
 
+1. Login: POST http://localhost:8200/auth/login
+Headers: Content-type: application/json
+Body:
+{
+    "login": "admin",
+    "password": "123456789"
+}
+
+Ответ: 200 OK
+json:
+{
+    "access_token": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjpbInByZW1pdW1fdXNlciIsImFkbWluIiwiZ3Vlc3QiXSwiaWF0IjoxNzUzMzYwNjkwLCJleHAiOjE3NTMzNjQyOTB9.XBnHZBdYkeMmvs4jV3bHfPyM7lxP75NonG-Pmhuqgj36huD0uuaiFPrM2Nu9DTWS",
+    "refresh_token": "60a2d50e-2950-4b50-823a-9387de9035fb",
+    "tokenType": "Bearer",
+    "expires_at": [
+        2025,
+        7,
+        24,
+        16,
+        38,
+        10,
+        838524500
+    ],
+    "user": {
+        "id": 1,
+        "login": "admin",
+        "email": "admin@mail.ru",
+        "roles": [
+            "PREMIUM_USER",
+            "GUEST",
+            "ADMIN"
+        ]
+    }
+}
+
+
+2. Logout: POST http://localhost:8200/auth/logout
+Authorization: Bearer Token
+Token: eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjpbInByZW1pdW1fdXNlciIsImFkbWluIiwiZ3Vlc3QiXSwiaWF0IjoxNzUzMzYwNjkwLCJleHAiOjE3NTMzNjQyOTB9.XBnHZBdYkeMmvs4jV3bHfPyM7lxP75NonG-Pmhuqgj36huD0uuaiFPrM2Nu9DTWS
+
+Ответ: 200 OK
+json:
+{
+    "success": true,
+    "message": "Успешный выход из системы",
+    "data": null
+}
+
+
+3. Другие endpoint's:
+  POST	/auth/login	    Логин (получение JWT токенов)
+  POST	/auth/register	Регистрация нового пользователя
+  POST	/auth/refresh	  Обновление (рефреш) JWT токена
+  POST	/auth/logout	  Выход (отзыв токена/разлогин)
+  POST  /auth/revoke    Отозвать все токены
+  GET   /admin/users    Список всех пользователей
+  GET   /user/profile   Профиль пользователя
+  PUT   /user/profile   Обновить профиль
+  
