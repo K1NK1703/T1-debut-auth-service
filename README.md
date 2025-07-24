@@ -60,19 +60,24 @@ JWT_SECRET_KEY=myVerySecretJWTKey123456789012345678901234567890abcdef
 В базе при запуске создаются пользователи:
 
 {
-"login": "admin",
-"password": "123456789",
-"roles": ["ADMIN", "PREMIUM_USER", "GUEST"]
+  "login": "admin",
+  "password": "123456789", # (пароль хранится в закодированном состоянии)
+  "roles": ['ADMIN', 'PREMIUM_USER', 'GUEST'],
+  другие атрибуты...
 }
+
 {
-"login": "premium_user",
-"password": "123456789",
-"roles": ["PREMIUM_USER", "GUEST"]
+  "login": "premium_user",
+  "password": "123456789", # (пароль хранится в закодированном состоянии)
+  "roles": ['PREMIUM_USER', 'GUEST'],
+  другие атрибуты...
 }
+
 {
-"login": "guest",
-"password": "123456789",
-"roles": ["GUEST"]
+  "login": "guest",
+  "password": "123456789", # (пароль хранится в закодированном состоянии)
+  "roles": ['GUEST'],
+  другие атрибуты...
 }
 
 ## Развёртывание
