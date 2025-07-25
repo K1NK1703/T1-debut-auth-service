@@ -47,9 +47,10 @@ public class SecurityConfig {
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/actuator/**").permitAll()
                         .requestMatchers("/auth/register", "/auth/login", "/auth/refresh").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/premium/**").hasAnyRole("ADMIN", "PREMIUM_USER")
+                        .requestMatchers("/user/**").hasAnyRole("ADMIN", "PREMIUM_USER")
                         .anyRequest().authenticated()
                 )
                 .userDetailsService(userDetailsService)
