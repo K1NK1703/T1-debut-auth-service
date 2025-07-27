@@ -174,10 +174,10 @@ json:
 
 3. Другие endpoint's:
 ```
-  POST	/auth/login	              Логин (получение токенов)
+  POST	/auth/login	          Логин (получение токенов)
   POST	/auth/register	          Регистрация нового пользователя
-  POST	/auth/refresh	            Обновление (рефреш) токена
-  POST	/auth/logout	            Выход (отзыв токена)
+  POST	/auth/refresh	          Обновление (рефреш) токена
+  POST	/auth/logout	          Выход (отзыв токена)
   POST  /auth/revoke              Отозвать токен
   POST  /auth/revoke-all          Отозвать все токены
   GET   /auth/sessions            Просмотр активных сессий пользователя
