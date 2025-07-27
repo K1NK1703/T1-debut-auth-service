@@ -44,7 +44,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(BadCredentialsException.class)
-    public ResponseEntity<ApiResponseDTO> handleBadCredentials(BadCredentialsException ex) {
+    public ResponseEntity<ApiResponseDTO> handleBadCredentials() {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                 .body(new ApiResponseDTO(false, "Неверный логин или пароль"));
     }
@@ -98,8 +98,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(AccessDeniedException.class)
-    public ResponseEntity<ErrorResponseDTO> handleAccessDenied(
-            AccessDeniedException ex, HttpServletRequest request) {
+    public ResponseEntity<ErrorResponseDTO> handleAccessDenied(HttpServletRequest request) {
         ErrorResponseDTO errorResponse = new ErrorResponseDTO(
                 "Недостаточно прав доступа",
                 "Access Denied",
@@ -134,8 +133,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponseDTO> handleGenericException(
-            Exception ex, HttpServletRequest request) {
+    public ResponseEntity<ErrorResponseDTO> handleGenericException(HttpServletRequest request) {
         ErrorResponseDTO errorResponse = new ErrorResponseDTO(
                 "Внутренняя ошибка сервера",
                 "Internal Server Error",
