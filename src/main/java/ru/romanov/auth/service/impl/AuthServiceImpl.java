@@ -3,6 +3,8 @@ package ru.romanov.auth.service.impl;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.experimental.NonFinal;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -30,6 +32,10 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class AuthServiceImpl implements AuthService {
+
+    @NonFinal
+    @Value("${jwt.expiration}")
+    int jwtExpiration;
 
     UserService userService;
     TokenService tokenService;
@@ -73,16 +79,17 @@ public class AuthServiceImpl implements AuthService {
 
             User user = userService.findByLogin(loginRequestDTO.login());
 
-            String accessToken = jwtUtilService.generateAccessToken(user.getLogin(), user.getRoles());
+            String accessToken = jwtUtilService.generateAccessToken(user);
             RefreshToken refreshToken = tokenService.createRefreshToken(user);
 
             LocalDateTime expiresAt = LocalDateTime.now()
-                    .plusSeconds(jwtUtilService.getJwtExpirationInSeconds());
+                    .plusSeconds(jwtExpiration);
 
             AuthResponseDTO.UserInfo userInfo = new AuthResponseDTO.UserInfo(
                     user.getId(), user.getLogin(), user.getEmail(), user.getRoles());
 
             return new AuthResponseDTO(accessToken, refreshToken.getToken(), expiresAt, userInfo);
+
         } catch (BadCredentialsException e) {
             throw new AuthException("Неверный логин или пароль");
         }
@@ -98,10 +105,10 @@ public class AuthServiceImpl implements AuthService {
                 .orElseThrow(() -> new AuthException("Refresh token не найден или истек"));
 
         User user = refreshToken.getUser();
-        String newAccessToken = jwtUtilService.generateAccessToken(user.getLogin(), user.getRoles());
+        String newAccessToken = jwtUtilService.generateAccessToken(user);
 
         LocalDateTime expiresAt = LocalDateTime.now()
-                .plusSeconds(jwtUtilService.getJwtExpirationInSeconds());
+                .plusSeconds(jwtExpiration);
 
         AuthResponseDTO.UserInfo userInfo = new AuthResponseDTO.UserInfo(
                 user.getId(), user.getLogin(), user.getEmail(), user.getRoles());

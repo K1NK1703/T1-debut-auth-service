@@ -22,6 +22,7 @@ import lombok.Setter;
 import lombok.Builder;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import ru.romanov.auth.model.Role;
 
@@ -31,7 +32,9 @@ import java.util.Set;
 
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 @Table(name = "users")
@@ -77,7 +80,6 @@ public class User {
         updatedAt = LocalDateTime.now();
     }
 
-    @Builder
     public User(String login, String password, String email) {
         this.login = login;
         this.password = password;

@@ -1,4 +1,4 @@
-package ru.romanov.auth.security;
+package ru.romanov.auth.security.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import ru.romanov.auth.dto.response.ApiResponseDTO;
 import ru.romanov.auth.dto.response.ErrorResponseDTO;
 import ru.romanov.auth.exception.AuthException;
-import ru.romanov.auth.exception.TokenException;
+import ru.romanov.auth.exception.TokenValidationException;
 import ru.romanov.auth.exception.UserNotFoundException;
 
 import java.util.HashMap;
@@ -85,9 +85,9 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
     }
 
-    @ExceptionHandler(TokenException.class)
+    @ExceptionHandler(TokenValidationException.class)
     public ResponseEntity<ErrorResponseDTO> handleTokenException(
-            TokenException ex, HttpServletRequest request) {
+            TokenValidationException ex, HttpServletRequest request) {
         ErrorResponseDTO errorResponse = new ErrorResponseDTO(
                 ex.getMessage(),
                 "Token Error",

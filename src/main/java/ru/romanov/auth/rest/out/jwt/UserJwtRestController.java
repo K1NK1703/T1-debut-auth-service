@@ -1,4 +1,4 @@
-package ru.romanov.auth.rest.out;
+package ru.romanov.auth.rest.out.jwt;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,7 @@ import ru.romanov.auth.util.UserSecurity;
 @RequestMapping("/user")
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequiredArgsConstructor
-public class UserRestController {
+public class UserJwtRestController {
 
     private final UserService userService;
 

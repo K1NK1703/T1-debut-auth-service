@@ -1,4 +1,4 @@
-package ru.romanov.auth.rest.out;
+package ru.romanov.auth.rest.out.jwt;
 
 import jakarta.validation.Valid;
 import lombok.AccessLevel;
@@ -28,7 +28,7 @@ import java.util.List;
 @PreAuthorize("hasRole('ADMIN')")
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class AdminRestController {
+public class AdminJwtRestController {
 
     UserService userService;
     TokenService tokenService;

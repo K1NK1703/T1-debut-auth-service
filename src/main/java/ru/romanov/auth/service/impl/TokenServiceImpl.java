@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.romanov.auth.exception.TokenException;
+import ru.romanov.auth.exception.TokenValidationException;
 import ru.romanov.auth.model.entity.RefreshToken;
 import ru.romanov.auth.model.entity.User;
 import ru.romanov.auth.repository.RefreshTokenRepository;
@@ -42,7 +42,7 @@ public class TokenServiceImpl implements TokenService {
     public RefreshToken verifyExpiration(RefreshToken token) {
         if (token.isExpired() || token.isRevoked()) {
             refreshTokenRepository.delete(token);
-            throw new TokenException("Refresh token недействителен или истек");
+            throw new TokenValidationException("Refresh token недействителен или истек");
         }
         return token;
     }

@@ -1,4 +1,4 @@
-package ru.romanov.auth.rest.out;
+package ru.romanov.auth.rest.out.jwt;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +27,7 @@ import java.util.Map;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class TokenRestController {
+public class TokenJwtRestController {
 
     TokenService tokenService;
     JwtUtilService jwtUtilService;

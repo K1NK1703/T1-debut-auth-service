@@ -1,7 +1,8 @@
-package ru.romanov.auth.rest.out;
+package ru.romanov.auth.rest.out.jwt;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,7 +20,8 @@ import ru.romanov.auth.service.AuthService;
 @RequestMapping("/auth")
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequiredArgsConstructor
-public class AuthRestController {
+@ConditionalOnProperty(name = "jwe.enabled", havingValue = "false")
+public class AuthJwtRestController {
 
     private final AuthService authService;
 

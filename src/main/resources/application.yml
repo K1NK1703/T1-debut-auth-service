@@ -40,9 +40,13 @@ spring:
       mode: always
 
 jwt:
-  expiration: 3600
+  expiration: ${JWT_EXPIRATION}
   secret:
     key: ${JWT_SECRET_KEY}
+jwe:
+  enabled: ${JWE_ENABLED}
+  encryption:
+    secret: ${JWE_ENCRYPTION_SECRET}
 
 management:
   endpoints:

@@ -1,4 +1,4 @@
-package ru.romanov.auth.security;
+package ru.romanov.auth.security.jwt;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,15 +17,17 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
+import ru.romanov.auth.security.AuthenticationFilter;
 
 import java.io.IOException;
 
 @Component
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class JwtAuthenticationFilter extends OncePerRequestFilter {
+@ConditionalOnProperty(name = "jwe.enabled", havingValue = "false")
+public class JwtAuthenticationFilter extends OncePerRequestFilter implements AuthenticationFilter {
 
-    JwtUtilService jwtUtilService;
+    StandardJwtUtilService standardJwtUtilService;
     UserDetailsService userDetailsService;
 
     @Override
@@ -34,8 +37,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         String jwt = getJwtFromRequest(request);
 
-        if (StringUtils.hasText(jwt) && jwtUtilService.validateToken(jwt)) {
-            String login = jwtUtilService.getLoginFromToken(jwt);
+        if (StringUtils.hasText(jwt) && standardJwtUtilService.validateToken(jwt)) {
+            String login = standardJwtUtilService.getLoginFromToken(jwt);
 
             UserDetails userDetails = userDetailsService.loadUserByUsername(login);
             UsernamePasswordAuthenticationToken authentication =

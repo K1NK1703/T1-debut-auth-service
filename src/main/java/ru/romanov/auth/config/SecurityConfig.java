@@ -20,8 +20,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import ru.romanov.auth.security.JwtAuthenticationEntryPoint;
-import ru.romanov.auth.security.JwtAuthenticationFilter;
+import ru.romanov.auth.security.AuthenticationFilter;
+import ru.romanov.auth.security.jwt.JwtAuthenticationEntryPoint;
 
 import java.util.Arrays;
 import java.util.List;
@@ -35,7 +35,7 @@ public class SecurityConfig {
 
     UserDetailsService userDetailsService;
     JwtAuthenticationEntryPoint unauthorizedHandler;
-    JwtAuthenticationFilter jwtAuthenticationFilter;
+    AuthenticationFilter authenticationFilter;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -54,7 +54,7 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .userDetailsService(userDetailsService)
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
@@ -80,6 +80,6 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        return new BCryptPasswordEncoder(12);
     }
 }
