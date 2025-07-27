@@ -95,10 +95,6 @@ public class EnhancedJwtAuthenticationFilter extends OncePerRequestFilter implem
     }
 
     private UserDetails createUserDetailsFromToken(SecureTokenData tokenData) {
-        Set<GrantedAuthority> authorities = tokenData.getRoles().stream()
-                .map(role -> new SimpleGrantedAuthority(String.format("ROLE_%s", role)))
-                .collect(Collectors.toSet());
-
         User user = User.builder()
                 .id(tokenData.getUserId())
                 .login(tokenData.getLogin())
