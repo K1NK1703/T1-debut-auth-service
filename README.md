@@ -30,7 +30,8 @@
 
 - Java 23  
 - Spring Boot 3.5.3  
-- Spring Security 6.x  
+- Spring Security 6.x
+- Spring Web 
 - Spring Data JPA  
 - PostgreSQL 17  
 - JWT (jjwt 0.12.6)  
